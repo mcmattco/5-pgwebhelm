@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-deployment"
+  labels:
+    run: "{{ .Release.Name }}"
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    release: "{{ .Release.Name }}"
+    heritage: "{{ .Release.Service }}"
+    app: "{{ .Release.Name }}"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "{{ .Release.Name }}"
+  template:
+    metadata:
+      labels:
+        app: "{{ .Release.Name }}"
+    spec:
+      containers:
+      - name: "{{ .Release.Name }}"
+        image: sosedoff/pgweb
+        command: ["/script/script.sh"]
+        ports:
+          - containerPort: 8081
+        volumeMounts:
+          - name: script-vol
+            mountPath: /script/
+        env:
+          - name: HOST
+            value: "{{ .Values.pgstrings.host }}"
+          - name: USER
+            value: "{{ .Values.pgstrings.user }}"
+          - name: DB
+            value: "{{ .Values.pgstrings.db }}"
+          - name: SSLMODE
+            value: "{{ .Values.pgstrings.sslmode }}"
+          - name: BIND
+            value: "{{ .Values.pgstrings.bind }}"
+          - name: PASS
+            valueFrom:
+              secretKeyRef:
+                name: pass
+                key: pass
+      volumes:
+        - name: script-vol
+          configMap:
+           name: script
+           defaultMode: 0505
