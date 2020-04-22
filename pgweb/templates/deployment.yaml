@@ -20,7 +20,8 @@ spec:
     spec:
       containers:
       - name: "{{ .Release.Name }}"
-        image: sosedoff/pgweb
+        image: "{{ .Values.image.repository }}/{{ .Values.image.name }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         command: ["/script/script.sh"]
         ports:
           - containerPort: 8081

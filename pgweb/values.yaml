@@ -2,8 +2,8 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-# values for pgweb connection string
 
+# psgtrings are values for pgweb connection string
 pgstrings:
   user: matt
   host: "matt-db.c0rhqqiwezsa.us-east-1.rds.amazonaws.com"
@@ -13,11 +13,15 @@ pgstrings:
   bind: "0.0.0.0"
   listen: "8081"
 
+ingress:
+  oauthHost: oauth.mcmattco.com
+  clusterIssuer: letsencrypt-prod
 
 replicaCount: 1
 
 image:
-  repository: nginx
+  repository: sosedoff
+  name: pgweb
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []
