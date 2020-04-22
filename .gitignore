@@ -1,0 +1,8 @@
+password.yaml
+keys
+oauth-proxy-creds
+oauth-proxy-creds.yaml
+oauth2-proxy-creds.yaml
+oauth2-proxy-creds-google.yaml
+oauth2-proxy-creds-google.yaml oauth2-proxy-creds.yaml
+secret.yaml
