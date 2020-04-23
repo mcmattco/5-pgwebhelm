@@ -36,6 +36,10 @@ image:
   name: pgweb
   pullPolicy: IfNotPresent
 
+
+# TODO: clean up everything below this line
+
+
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
